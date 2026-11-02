@@ -2,6 +2,10 @@
 
 Guidelines for writing Python code in this project.
 
+## Reporting skills used
+
+- At the start of each reply, state in one short line all the skills used so far in the session (e.g. "Skills used: oecd-writing-style, oecd-chart-design-aesthetics"), or "Skills used: none".
+
 ## Working on existing scripts
 
 - When reviewing or editing existing scripts, **don't change their file type (`.py` ↔ `.ipynb`) without asking for permission first**.
