@@ -9,6 +9,7 @@ Claude Code skills and instructions I use for OECD work.
 | `skills/oecd-chart-design-aesthetics/` | Visual design and wording rules for OECD-style charts (palettes, typography, gridlines, titles, sources and notes). |
 | `skills/oecd-writing-style/` | Drafting and proofreading English text in OECD house style (OECD Style Guide, 4th edition, 2025). |
 | `skills/python-style/` | My Python coding style (Python 3.12, type hints, Google-style docstrings, Polars, scripts vs. notebooks). |
+| `install.ps1`, `install.sh` | Scripts that copy the skills (and optionally the global CLAUDE.md) into `~/.claude/` on Windows and macOS/Linux. |
 | `claude-md/CLAUDE.md` | My global Claude Code instructions (language-agnostic coding guidelines, with a pointer to `python-style`). Kept in a subfolder so it doesn't act as this repo's own project instructions. |
 
 Each skill follows the standard layout: a `SKILL.md` with `name` and
@@ -17,10 +18,33 @@ loads when needed.
 
 ## Installing
 
-Skills go in `~/.claude/skills/<skill-name>/`. Linking the folders (rather
-than copying them) keeps the installed skills in sync with this repo.
+Skills go in `~/.claude/skills/<skill-name>/`. The install scripts copy every
+skill in this repo there, replacing installed skills of the same name and
+leaving any others alone. Run them again after pulling to update.
 
-On Windows, a directory junction works without admin rights:
+On Windows:
+
+```powershell
+.\install.ps1                    # skills only
+.\install.ps1 -IncludeClaudeMd   # also install the global CLAUDE.md
+```
+
+On macOS or Linux:
+
+```bash
+bash install.sh               # skills only
+bash install.sh --claude-md   # also install the global CLAUDE.md
+```
+
+With the CLAUDE.md option, an existing `~/.claude/CLAUDE.md` is saved as
+`CLAUDE.md.bak` before being replaced. Install it together with the skills:
+it tells Claude to load `python-style`.
+
+### Linking instead of copying
+
+Linking the folders keeps the installed skills in sync with this repo without
+re-running the script. On Windows, a directory junction works without admin
+rights:
 
 ```powershell
 $repo = "<path to your clone of this repo>"
