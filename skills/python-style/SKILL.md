@@ -1,7 +1,7 @@
 ---
 name: python-style
 description: >-
-  Personal Python coding style: Python 3.12 target, `.py` scripts vs Jupyter notebooks, script section headers, type hints on everything, Google-style docstrings, functional pipelines for simple data processing, and Polars over pandas for tabular data. Use whenever writing, editing, reviewing or refactoring Python code - any `.py` file or `.ipynb` notebook, a script, module, function, class or code snippet in a reply - even for a quick one-off script and even if style isn't mentioned.
+  Personal Python coding style: Python 3.12 target, a project uv (or venv) environment instead of the computer's general Python, `.py` scripts vs Jupyter notebooks, script section headers, type hints on everything, Google-style docstrings, functional pipelines for simple data processing, and Polars over pandas for tabular data. Use whenever writing, editing, reviewing or refactoring Python code - any `.py` file or `.ipynb` notebook, a script, module, function, class or code snippet in a reply, or setting up, installing or running a Python project - even for a quick one-off script and even if style isn't mentioned.
 ---
 
 # Python style
@@ -12,6 +12,16 @@ These rules add the Python specifics to the general coding guidelines in `CLAUDE
 
 - Write code that targets **Python 3.12**.
 - Don't add compatibility shims for older Python versions.
+
+## Python environments
+
+- **Never use the computer's general Python installation** (system Python, Homebrew, python.org, global `pip install`). Every project gets its own environment.
+- Prefer **uv**: declare dependencies in `pyproject.toml`, commit `uv.lock` and `.python-version`, and let `uv sync` create `.venv/` in the project.
+- Make uv use a Python it downloads and manages rather than one already on the computer: set `python-preference = "only-managed"` under `[tool.uv]` in `pyproject.toml`.
+- Run everything through the project environment: `uv run python script.py`, `uv run pytest`. Add packages with `uv add` (or `uv add --dev`), not `pip install`.
+- If uv isn't available, use a project `.venv` (`python -m venv .venv`) and call `.venv/bin/python` explicitly.
+- Write commands in READMEs, CI and Dockerfiles the same way (`uv sync`, `uv run ...`). In a container the image's own Python is already dedicated to the app, so uv may use it there.
+- Keep `.venv/` out of git and out of Docker build contexts.
 
 ## Scripts vs. notebooks
 
