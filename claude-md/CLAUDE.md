@@ -39,6 +39,13 @@ General guidelines for all my work. Language-specific coding rules live in skill
 - Handle errors explicitly when writing scripts.
 - Document configuration parameters to avoid 'voodoo constants'.
 
+## Verifiable intermediate outputs
+
+- For complex tasks, split the work into steps that each produce a **verifiable intermediate output** (e.g. a saved table, a row count, a plot, a summary of key values) rather than going straight to the final result.
+- Validate each intermediate output before moving on: check it against explicit expectations (shape, keys, ranges, totals, missing values, known reference values).
+- When a check fails, raise or show a **clear, specific error** that says what was expected, what was found and where, so the problem can be debugged.
+- Fix the cause, rerun the step and repeat the validation until it passes; only then build on it.
+
 ## Functional style for simple data processing
 
 - For simple data transformations, use a functional style:
