@@ -36,6 +36,8 @@ General guidelines for all my work. Language-specific coding rules live in skill
 - Make design patterns and decisions explicit. When code follows a pattern (e.g. pipeline, strategy, factory, record type), name it in the function's documentation or a short comment.
 - When a non-obvious choice is made (a library, an algorithm, a trade-off), add a brief comment explaining **why**.
 - Prefer explicit over implicit: explicit imports (no wildcard imports), explicit return types, explicit named arguments for anything non-obvious.
+- Handle errors explicitly when writing scripts.
+- Document configuration parameters to avoid 'voodoo constants'.
 
 ## Functional style for simple data processing
 
