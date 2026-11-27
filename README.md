@@ -19,15 +19,22 @@ loads when needed.
 
 ## Installing
 
-Skills go in `~/.claude/skills/<skill-name>/`. The install scripts copy every
-skill in this repo there, replacing installed skills of the same name and
-leaving any others alone. Run them again after pulling to update.
+Skills go in `~/.claude/skills/<skill-name>/`. The install scripts sync every
+skill in this repo there and leave any other installed skills alone. Run them
+again after pulling to update.
+
+Files are compared by SHA-256 hash: only new or changed files are copied, and
+files no longer in the repo are removed from the installed skill. At the end
+the script lists the files it updated and the ones it left as they were
+because they were identical. An installed skill that is a link (see below) is
+replaced by a copy.
 
 On Windows:
 
 ```powershell
 .\install.ps1                    # skills only
 .\install.ps1 -IncludeClaudeMd   # also install the global CLAUDE.md
+.\install.ps1 -DryRun            # show what would be updated, change nothing
 ```
 
 On macOS or Linux:
@@ -35,10 +42,11 @@ On macOS or Linux:
 ```bash
 bash install.sh               # skills only
 bash install.sh --claude-md   # also install the global CLAUDE.md
+bash install.sh --dry-run     # show what would be updated, change nothing
 ```
 
-With the CLAUDE.md option, an existing `~/.claude/CLAUDE.md` is saved as
-`CLAUDE.md.bak` before being replaced. Install it together with the skills:
+With the CLAUDE.md option, an existing `~/.claude/CLAUDE.md` that differs from
+the repo's is saved as `CLAUDE.md.bak` before being replaced. Install it together with the skills:
 it tells Claude to load `python-style`.
 
 ### Linking instead of copying
